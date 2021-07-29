@@ -1,4 +1,4 @@
-package com.example.broadcastreceivers;
+package com.example.receivenameandage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -13,12 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
     private Button mButton;
-    private TextView tvText;
+    private TextView tvName, tvAge;
     private LocalBroadcastManager localBroadcastManager;
     private LocalReceiver localReceiver;
-
+    private String name, age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +25,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         mButton = findViewById(R.id.btnSend);
-        tvText = findViewById(R.id.tvText);
+        tvName = findViewById(R.id.tvName);
+        tvAge = findViewById(R.id.tvAge);
         registerLocal();
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("com.broadcast.com");
-                intent.putExtra("key", "Hello Masai School");
+                Intent intent = new Intent("com.details.com");
+                intent.putExtra("Name", "Sachin Sharma");
+                intent.putExtra("Age", "23");
                 localBroadcastManager.sendBroadcast(intent);
             }
         });
@@ -40,14 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void registerLocal() {
         localReceiver = new LocalReceiver();
-        IntentFilter intentFilter = new IntentFilter("com.broadcast.com");
+        IntentFilter intentFilter = new IntentFilter("com.details.com");
         localBroadcastManager.registerReceiver(localReceiver, intentFilter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        localBroadcastManager.unregisterReceiver(localReceiver);
     }
 
     private class LocalReceiver extends BroadcastReceiver {
@@ -55,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
-               String data = intent.getStringExtra("key");
-               tvText.setText(data);
+                name = intent.getStringExtra("Name");
+                age = intent.getStringExtra("Age");
+                tvName.setText(name);
+                tvAge.setText(age);
             }
         }
     }
