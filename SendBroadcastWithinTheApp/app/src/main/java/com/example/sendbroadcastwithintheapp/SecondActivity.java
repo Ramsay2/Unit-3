@@ -1,8 +1,10 @@
 package com.example.sendbroadcastwithintheapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,38 +17,27 @@ public class SecondActivity extends AppCompatActivity {
 
     private TextView mTvMessage;
     private String message;
-    private LocalReceiver localReceiver ;
-    private LocalBroadcastManager localBroadcastManager;
+    private static final int CAMERA_CODE_REQUEST = 1;
+    private LocalReceiver localReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        localBroadcastManager = LocalBroadcastManager.getInstance(this);
         mTvMessage = findViewById(R.id.tvReceived);
         registerLocal();
-        Log.d("sharma", "Second it");
+
     }
 
 
     private void registerLocal() {
-        Log.d("sharma", "Local it");
-            localReceiver = new LocalReceiver();
-        IntentFilter intentFilter = new IntentFilter("com.message.get");
-       // registerReceiver(localReceiver, intentFilter);
-       localBroadcastManager.registerReceiver(localReceiver, intentFilter);
+        String[] permission = {Manifest.permission.CAMERA};
+        ActivityCompat.requestPermissions(SecondActivity.this, permission, CAMERA_CODE_REQUEST);
+        message = getIntent().getStringExtra("Message");
+        mTvMessage.setText(message);
+
     }
 
-
-    private class LocalReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-                Log.d("sharma", "received it");
-                message = intent.getStringExtra("Message");
-                mTvMessage.setText(message);
-        }
-    }
 
     @Override
     protected void onDestroy() {
