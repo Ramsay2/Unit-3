@@ -28,8 +28,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     public void setData(ResponseDTO responseDTO) {
 
+        Glide.with(itemView).load(responseDTO.getOwner().getAvatarUrl()).placeholder(R.drawable.ic_launcher_background).into(mivImage);
         mtvName.setText(responseDTO.getName());
-        mtvId.setText(responseDTO.getNodeId());
-        Glide.with(itemView).load(responseDTO.getUrl()).placeholder(R.drawable.ic_launcher_background).into(mivImage);
+        mtvId.setText(responseDTO.getOwner().getLogin());
     }
 }
