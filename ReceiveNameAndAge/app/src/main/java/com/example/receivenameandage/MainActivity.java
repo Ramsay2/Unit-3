@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         mButton = findViewById(R.id.btnSend);
+        registerLocal();
         tvName = findViewById(R.id.tvName);
         tvAge = findViewById(R.id.tvAge);
-        registerLocal();
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void registerLocal() {
+        Log.d("sharma", "Local it");
         localReceiver = new LocalReceiver();
         IntentFilter intentFilter = new IntentFilter("com.details.com");
         localBroadcastManager.registerReceiver(localReceiver, intentFilter);
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("sharma", "received it");
             if (intent != null) {
                 name = intent.getStringExtra("Name");
                 age = intent.getStringExtra("Age");

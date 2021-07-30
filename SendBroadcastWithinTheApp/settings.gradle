@@ -1,0 +1,2 @@
+rootProject.name = "Send Broadcast Within The App"
+include ':app'

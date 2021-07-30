@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     if (result.getData() != null) {
                         Uri selectedVideoUri = result.getData().getData();
                         try {
-                            getImagePathFromUri(selectedVideoUri);
+                            getVideoPathFromUri(selectedVideoUri);
                             mIvGallery.setVideoURI(selectedVideoUri);
 
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     );
 
     @NotNull
-    private Cursor getImagePathFromUri(Uri selectedVideo) {
+    private Cursor getVideoPathFromUri(Uri selectedVideo) {
         String[] filePath = {MediaStore.Video.Media.DATA};
         Cursor c = getContentResolver().query(selectedVideo, filePath,
                 null, null, null);
