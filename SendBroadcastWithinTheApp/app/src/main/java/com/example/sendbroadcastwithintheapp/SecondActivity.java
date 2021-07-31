@@ -18,7 +18,6 @@ public class SecondActivity extends AppCompatActivity {
     private TextView mTvMessage;
     private String message;
     private static final int CAMERA_CODE_REQUEST = 1;
-    private LocalReceiver localReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +25,13 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
         mTvMessage = findViewById(R.id.tvReceived);
         registerLocal();
-
     }
-
-
     private void registerLocal() {
-        String[] permission = {Manifest.permission.CAMERA};
-        ActivityCompat.requestPermissions(SecondActivity.this, permission, CAMERA_CODE_REQUEST);
+        ActivityCompat.requestPermissions(
+                SecondActivity.this,
+                new String[]{Manifest.permission.CAMERA},
+                CAMERA_CODE_REQUEST
+        );
         message = getIntent().getStringExtra("Message");
         mTvMessage.setText(message);
 
@@ -42,6 +41,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LocalReceiver localReceiver = new LocalReceiver();
         unregisterReceiver(localReceiver);
     }
 }

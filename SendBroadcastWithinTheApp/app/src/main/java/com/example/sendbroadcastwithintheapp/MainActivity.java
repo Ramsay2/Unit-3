@@ -30,16 +30,16 @@ public class MainActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] permission = {Manifest.permission.CAMERA};
                 Intent intent = new Intent("com.message.com");
-                ActivityCompat.requestPermissions(MainActivity.this, permission, CAMERA_CODE_REQUEST);
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.CAMERA},
+                        CAMERA_CODE_REQUEST
+                );
                 intent.putExtra("Message", "Message received");
                 sendBroadcast(intent, Manifest.permission.CAMERA);
             }
         });
     }
-
-
 
     private void registerReceiver() {
         IntentFilter intentFilter = new IntentFilter("com.message.com");
