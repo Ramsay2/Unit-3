@@ -21,7 +21,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void initView(View itemView) {
-        mtvName = itemView.findViewById(R.id.tvName);
+        mtvName = itemView.findViewById(R.id.tvNames);
         mtvId = itemView.findViewById(R.id.tvID);
         mivImage = itemView.findViewById(R.id.ivImage);
     }
