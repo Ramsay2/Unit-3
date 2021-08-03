@@ -1,4 +1,4 @@
-package com.example.fragment_3;
+package com.example.events;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +14,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class StudentPersonalDetailsFragment extends Fragment implements CommunicationListener {
-
+public class EventDetailsFragment extends Fragment implements CommunicationListener {
+    private EditText mEtEventTitle, mEtEventDesc;
     private Button mBtnNext;
-    private EditText mEtName, mEtAge;
     private CommunicationListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_student_personal_details, container, false);
+        return inflater.inflate(R.layout.fragment_event_details, container, false);
     }
 
     @Override
@@ -41,19 +39,19 @@ public class StudentPersonalDetailsFragment extends Fragment implements Communic
     }
 
     private void initView(View view) {
+        mEtEventTitle = view.findViewById(R.id.etTitle);
+        mEtEventDesc = view.findViewById(R.id.etDescription);
         mBtnNext = view.findViewById(R.id.btnNext);
-        mEtName = view.findViewById(R.id.etStudentName);
-        mEtAge = view.findViewById(R.id.etStudentAge);
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = mEtName.getText().toString();
-                int age = Integer.parseInt(mEtAge.getText().toString());
-                Bundle bundle = new Bundle();
-                bundle.putString("name", name);
-                bundle.putInt("age", age);
+                String title = mEtEventTitle.getText().toString();
+                String desc = mEtEventDesc.getText().toString();
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("title", title);
+                bundle1.putString("desc", desc);
                 if (listener != null) {
-                    listener.launchPerformanceFragment(bundle);
+                    listener.launchTimeAndDate(bundle1);
                 }
             }
         });
@@ -63,10 +61,13 @@ public class StudentPersonalDetailsFragment extends Fragment implements Communic
         this.listener = communicationListener;
     }
 
-
     @Override
-    public void launchPerformanceFragment(Bundle bundle) {
+    public void launchTimeAndDate(Bundle bundle) {
 
     }
 
+    @Override
+    public void launchPriceDetails(Bundle bundle1) {
+
+    }
 }
