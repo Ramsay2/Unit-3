@@ -1,7 +1,6 @@
 package com.example.dynamicfragments;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
