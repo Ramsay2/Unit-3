@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         addA();
 
-
     }
 
     private void addA() {
