@@ -14,7 +14,6 @@ public class WorkerThread extends HandlerThread {
         super(name);
         this.mainHandler = mainHandler;
 
-
     }
 
     @Override
