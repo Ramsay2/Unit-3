@@ -1,17 +1,14 @@
 package com.example.applecount;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements CommunicationListener {
     private FragmentManager fragmentManager;
-    private CommunicationListener communicationListener;
+    private TotalApplesFragment totalApplesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +20,21 @@ public class MainActivity extends AppCompatActivity implements CommunicationList
 
     private void launchTotalApple() {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        TotalApplesFragment fragment = new TotalApplesFragment();
-        fragmentTransaction.add(R.id.container, fragment, "totalApple").addToBackStack("fragment").commit();
+        totalApplesFragment = new TotalApplesFragment();
+        fragmentTransaction.add(R.id.container, totalApplesFragment, "totalApple").commit();
     }
 
     @Override
-    public void launchTotalApple(Bundle bundle) {
-        
+    public void launchBuyAppleFragment(Bundle bundle) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        BuyApplesFragment buyApplesFragment = new BuyApplesFragment();
+        buyApplesFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.container, buyApplesFragment, "buyApple").addToBackStack("BuyApplesFragment").commit();
 
+    }
+
+    @Override
+    public void sendApplesData(Bundle bundle) {
+        totalApplesFragment.setArguments(bundle);
     }
 }

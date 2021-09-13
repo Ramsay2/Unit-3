@@ -1,5 +1,6 @@
 package com.example.applecount;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,11 +21,19 @@ public class TotalApplesFragment extends Fragment {
     private EditText metTotal;
     private TextView mtvAppleLeft;
     private Button mbtnNext;
+    private CommunicationListener listener;
     private FragmentManager fragmentManager;
+    int number;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        listener = (CommunicationListener) context;
 
     }
 
@@ -46,24 +55,29 @@ public class TotalApplesFragment extends Fragment {
         metTotal = view.findViewById(R.id.etTotalApples);
         mtvAppleLeft = view.findViewById(R.id.tvAppleLeft);
         mbtnNext = view.findViewById(R.id.btnNext);
-
+        getParentFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (getParentFragmentManager().getBackStackEntryCount() == 0){
+                    if (getArguments()!= null){
+                        number = getArguments().getInt("applesLeft");
+                    }
+                    mtvAppleLeft.setText(number +"");
+                }
+            }
+        });
         mbtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int total = Integer.parseInt(metTotal.getText().toString());
                 Bundle bundle = new Bundle();
-                bundle.putInt("apple",total);
-                replaceAWithB();
+                bundle.putInt("TotalApples",total);
+                if (listener != null){
+                    listener.launchBuyAppleFragment(bundle);
+                }
             }
         });
         fragmentManager = requireActivity().getSupportFragmentManager();
-    }
-
-    private void replaceAWithB() {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        BuyApplesFragment buyApplesFragment = new BuyApplesFragment();
-        transaction.replace(R.id.container, buyApplesFragment, "buyApplesFragment").commit();
-
     }
 
 }

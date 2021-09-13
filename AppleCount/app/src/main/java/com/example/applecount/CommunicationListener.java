@@ -4,5 +4,6 @@ package com.example.applecount;
 import android.os.Bundle;
 
 public interface CommunicationListener {
-    void launchTotalApple(Bundle bundle);
+    void launchBuyAppleFragment(Bundle bundle);
+    void sendApplesData(Bundle bundle);
 }

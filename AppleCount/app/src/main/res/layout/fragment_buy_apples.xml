@@ -5,14 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".BuyApplesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:id="@+id/etAppleToBuy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:inputType="number"
-        android:layout_gravity="center"
-        android:hint="Enter Quantity" />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:orientation="vertical">
+
+      <EditText
+          android:id="@+id/etAppleToBuy"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="50dp"
+          android:inputType="number"
+          android:layout_gravity="center"
+          android:hint="Enter Quantity" />
+      <Button
+          android:id="@+id/btnGetApple"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="getApple"/>
+  </LinearLayout>
+
 
 </FrameLayout>
